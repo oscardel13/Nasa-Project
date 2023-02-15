@@ -1,13 +1,8 @@
 import { useMemo } from "react";
-import { Appear, Table, Paragraph, Link } from "arwes";
-import Clickable from "../components/Clickable";
+import { Appear, Table, Paragraph } from "arwes";
 
 
 const History = props => {
-  const {
-  
-  } = props;
-
   const tableBody = useMemo(() => {
     return props.launches?.filter((launch) => !launch.upcoming)
       .map((launch) => {
