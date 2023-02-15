@@ -5,7 +5,7 @@ import Clickable from "../components/Clickable";
 
 const History = props => {
   const {
-    deleteLaunch,
+    deleteLaunch
   } = props;
 
   const tableBody = useMemo(() => {

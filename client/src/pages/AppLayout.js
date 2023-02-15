@@ -92,7 +92,10 @@ const AppLayout = props => {
                 abortLaunch={abortLaunch} />
             </Route>
             <Route exact path="/history">
-              <History entered={anim.entered} launches={launches} deleteLaunch={deleteLaunch}/>
+              <History 
+                entered={anim.entered} 
+                launches={launches} 
+                deleteLaunch={deleteLaunch}/>
             </Route>
           </Switch>
           </div>
