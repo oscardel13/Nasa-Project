@@ -108,7 +108,7 @@ async function saveLaunch(launch){
 async function addNewLaunch(newLaunch){
     const planet = await planets.findOne({keplerName: newLaunch.target})
     if (!planet){
-        throw new Error("Not habitiable planet");
+        throw new Error("No matching planet found");
     }
     newLaunch = {...newLaunch, 
         flightNumber : await getLatestFlightNumnber()+1,
