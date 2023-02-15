@@ -4,6 +4,10 @@ import Clickable from "../components/Clickable";
 
 
 const History = props => {
+  const {
+    deleteLaunch
+  } = props;
+
   const tableBody = useMemo(() => {
     return props.launches?.filter((launch) => !launch.upcoming)
       .map((launch) => {
@@ -20,14 +24,14 @@ const History = props => {
           <td>{launch.customers?.join(", ")}</td>
           <td>
             <Clickable style={{color:"red"}}>
-              <Link style={{"color": "red", "textDecoration": "none"}} onClick={() => props.deleteLaunch(launch.flightNumber)}>
+              <Link style={{"color": "red", "textDecoration": "none"}} onClick={() => deleteLaunch(launch.flightNumber)}>
                 ✖
               </Link>
             </Clickable>
           </td>
         </tr>;
       });
-  }, [props.launches]);
+  }, [props.launches, deleteLaunch]);
 
   return <article id="history">
     <Appear animate show={props.entered}>
