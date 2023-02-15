@@ -5,7 +5,6 @@ async function httpDeleteLaunch(req, res){
     const launchExist = await existsLaunchWithId(flightNumber)
     if (launchExist){
         const deleteLaunchRes = await forceDelete(flightNumber)
-        console.log(deleteLaunchRes)
         if (!deleteLaunchRes) return res.status(400).json({error: "launch not aborted"})
         return res.status(200).json({ok: true})
     }
