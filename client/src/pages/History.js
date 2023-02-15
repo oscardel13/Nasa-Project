@@ -5,7 +5,7 @@ import Clickable from "../components/Clickable";
 
 const History = props => {
   const {
-    deleteLaunch
+  
   } = props;
 
   const tableBody = useMemo(() => {
@@ -22,13 +22,7 @@ const History = props => {
           <td>{launch.mission}</td>
           <td>{launch.rocket}</td>
           <td>{launch.customers?.join(", ")}</td>
-          <td>
-            <Clickable style={{color:"red"}}>
-              <Link style={{"color": "red", "textDecoration": "none"}} onClick={() => deleteLaunch(launch.flightNumber)}>
-                ✖
-              </Link>
-            </Clickable>
-          </td>
+
         </tr>;
       });
   }, [props.launches]);
@@ -46,7 +40,6 @@ const History = props => {
               <th>Mission</th>
               <th style={{width: "7rem"}}>Rocket</th>
               <th>Customers</th>
-              <th style={{width: "3rem"}}></th>
             </tr>
           </thead>
           <tbody>
