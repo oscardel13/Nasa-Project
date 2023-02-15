@@ -1,13 +1,11 @@
 import { useMemo } from "react";
 import { Appear, Table, Paragraph, Link } from "arwes";
 import Clickable from "../components/Clickable";
-import ConfirmBox from "../components/Confirnmation";
 
 
 const History = props => {
   const {
     deleteLaunch,
-    classes
   } = props;
 
   const tableBody = useMemo(() => {
