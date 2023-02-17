@@ -1,5 +1,5 @@
 import {
-  BrowserRouter as Router,
+  BrowserRouter as Router, Route,
 } from "react-router-dom";
 import {
   Arwes,
@@ -12,6 +12,7 @@ import {
 import AppLayout from "./pages/AppLayout";
 
 import { theme, resources, sounds } from "./settings";
+import Auth from "./pages/Auth";
 
 const App = () => {
   return <ThemeProvider theme={createTheme(theme)}>
@@ -19,7 +20,13 @@ const App = () => {
       <Arwes animate background={resources.background.large} pattern={resources.pattern}>
         {anim => (
           <Router>
-            <AppLayout show={anim.entered} />
+            <Route exact path="/">
+              <Auth/>
+            </Route>
+            <Route path="/dashboard">
+              <AppLayout show={anim.entered} />
+            </Route>
+            
           </Router>
         )}
       </Arwes>

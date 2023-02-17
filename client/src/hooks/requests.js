@@ -1,4 +1,4 @@
-const API_URL = 'v1'
+const API_URL = 'http://localhost:8000/v1'
 
 async function httpGetPlanets() {
   const response = await fetch(`${API_URL}/planets`)
@@ -59,10 +59,26 @@ async function httpDeleteLaunch(id) {
   }
 }
 
+async function httpGuest() {
+  try{
+    return await fetch(`${API_URL}/auth/guest`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': "application/json"
+      },
+    })
+  }
+  catch(error){
+    console.log(error)
+    return {ok: false}
+  }
+}
+
 export {
   httpGetPlanets,
   httpGetLaunches,
   httpSubmitLaunch,
   httpAbortLaunch,
-  httpDeleteLaunch
+  httpDeleteLaunch,
+  httpGuest
 };

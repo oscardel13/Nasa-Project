@@ -78,20 +78,20 @@ const Header = props => {
       <nav className={`${classes.nav}`}>
         <Clickable className={classes.clickable} onClick={onNav}>
           <Highlight className={classes.button} animate layer="header">
-            <Link className={classes.link} to="/launch">
+            <Link className={classes.link} to="/dashboard/launch">
               <i className="material-icons">check_circle_outline</i>Launch
             </Link>
           </Highlight>
         </Clickable>
         <Clickable className={classes.clickable} onClick={onNav}>
           <Highlight className={classes.button} animate layer="header">
-            <Link className={classes.link} to="/upcoming">
+            <Link className={classes.link} to="/dashboard/upcoming">
             <i className="material-icons">update</i>Upcoming</Link>
           </Highlight>
         </Clickable>
         <Clickable className={classes.clickable} onClick={onNav}>
           <Highlight className={classes.button} animate layer="header">
-            <Link className={classes.link} to="/history">
+            <Link className={classes.link} to="/dashboard/history">
             <i className="material-icons">history</i>History</Link>
           </Highlight>
         </Clickable>

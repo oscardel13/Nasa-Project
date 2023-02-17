@@ -2,6 +2,9 @@ const axios = require('axios');
 
 const launches = require('./launches.mongo');
 const planets = require('./planets.mongo');
+const guest = require('./users.models');
+
+const guestLaunches = new Map();
 
 const launch = {
     flightNumber : 100, //flight_number
@@ -14,7 +17,7 @@ const launch = {
     success: true //success
 }
 
-saveLaunch(launch)
+guestLaunches.set(launch.flightNumber,launch)
 
 const SPACEX_API_URL = "https://api.spacexdata.com/v4/launches/query"
 
@@ -89,12 +92,21 @@ async function findLaunch(filter){
 }
 
 async function getLatestFlightNumnber() {
+    if (guest.mode){
+        if (guestLaunches){
+            return Array.from(guestLaunches.values()).pop().flightNumber ;
+        }
+        return 0
+    }
     const latestLaunch = await launches.findOne({}).sort('-flightNumber')
     if (!latestLaunch) return 100
     return latestLaunch.flightNumber
 }
 
 async function getAllLaunches(skip, limit) {
+    if (guest.mode){
+        return Array.from(guestLaunches.values());
+    }
     return await launches.find({},"-_id -__v").skip(skip).limit(limit).sort("flightNumber")
 }
 
@@ -116,7 +128,13 @@ async function addNewLaunch(newLaunch){
         upcoming: true,
         success: true
     }
-    await saveLaunch(newLaunch)
+    if (guest.mode){
+        guestLaunches.set(newLaunch.flightNumber,newLaunch)
+    }
+    else{
+        await saveLaunch(newLaunch)
+    }
+    
     return {newLaunch}  
 
     
@@ -128,8 +146,17 @@ async function existsLaunchWithId(launchId){
 
 async function abortLaunch(flightNumber){
     try{
-        const aborted = await launches.updateOne({flightNumber: flightNumber},{upcoming:false,success:false})
-        return aborted.modifiedCount === 1;
+        if (guest.mode){
+            const aborted = guestLaunches.get(flightNumber)
+            aborted.upcoming = false;
+            aborted.success = false;
+            return aborted
+        }
+        else{
+            const aborted = await launches.updateOne({flightNumber: flightNumber},{upcoming:false,success:false})
+            return aborted.modifiedCount === 1;
+        }
+        
     }
     catch{
         return {success: false, error: "could not abort"}
@@ -138,6 +165,10 @@ async function abortLaunch(flightNumber){
 
 async function forceDelete(launchId){
     try{
+        if (guest.mode){
+            guestLaunches.delete(launchId)
+            return aborted
+        }
         const launchDel = launches.deleteOne({flightNumber: launchId})
         return launchDel
     }

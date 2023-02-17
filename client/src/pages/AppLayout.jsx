@@ -71,27 +71,27 @@ const AppLayout = props => {
         {anim => (
           <div style={{padding: "20px"}}>
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/dashboard">
               <Launch 
                 entered={anim.entered}
                 planets={planets}
                 submitLaunch={submitLaunch}
                 isPendingLaunch={isPendingLaunch} />
             </Route>
-            <Route exact path="/launch">
+            <Route exact path="/dashboard/launch">
               <Launch
                 entered={anim.entered}
                 planets={planets}
                 submitLaunch={submitLaunch}
                 isPendingLaunch={isPendingLaunch} />
             </Route>
-            <Route exact path="/upcoming">
+            <Route exact path="/dashboard/upcoming">
               <Upcoming
                 entered={anim.entered}
                 launches={launches}
                 abortLaunch={abortLaunch} />
             </Route>
-            <Route exact path="/history">
+            <Route exact path="/dashboard/history">
               <History 
                 entered={anim.entered} 
                 launches={launches} 

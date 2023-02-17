@@ -1,34 +1,49 @@
-import { useMemo } from "react";
 import { Appear, Button, Loading, Paragraph } from "arwes";
+import { useHistory } from "react-router-dom";
+import { httpGuest } from "../hooks/requests";
 import Clickable from "../components/Clickable";
 
 const Auth = props => {
-  return <Appear id="auth" animate show={props.entered}>
-    <h1>Log In</h1>
-    <Paragraph>Please Log in with Google otherwise log in with:</Paragraph>
-    <ul>
-      <li>username: guest</li>
-      <li>password: guest123</li>
-    </ul>
+  let history = useHistory();
 
-    <form onSubmit={props.submitLaunch} style={{display: "inline-grid", gridTemplateColumns: "auto auto", gridGap: "10px 20px"}}>
-      <label htmlFor="username">Username</label>
-      <input type="text" id="username" name="username" />
-      <label htmlFor="password">Password</label>
-      <input type="password" id="password" name="password"/>
-      <Clickable>
-        <Button animate 
-          show={props.entered} 
-          type="submit" 
-          layer="success" 
-          disabled={props.isPendingLaunch}>
-          Log In ✔
-        </Button>
-      </Clickable>
-      {props.isPendingLaunch &&
-        <Loading animate small />
-      }
-    </form>
+  const googleAuthRedirect = () => {
+    history.push("/v1/auth/google")
+    history.go(0)
+  }
+
+  const googleGuestRedirect = () => {
+    history.push("/v1/auth/guest")
+    history.go(0)
+  }
+
+  return <Appear id="auth" animate show={props.entered}>
+    <div className="email-password-login-contaner" style={{"paddingLeft":"50px"}}>
+      <h1>Log In</h1>
+      <Paragraph>Please Log in with Google otherwise click guest</Paragraph>
+      <Paragraph><small>Guest will not be able to see any real data</small></Paragraph>
+
+        <Clickable>
+          <Button animate 
+            show={props.entered} 
+            onClick={googleAuthRedirect}>
+            Continue with Google
+          </Button>
+        </Clickable>
+        {props.isPendingLaunch &&
+          <Loading animate small />
+        }
+        <div className="divider" style={{"width":"30px", "height":"auto", "display":"inline-block"}}/>
+        <Clickable>
+          <Button animate 
+            show={props.entered}
+            onClick={googleGuestRedirect}>
+            Guest
+          </Button>
+        </Clickable>
+        {props.isPendingLaunch &&
+          <Loading animate small />
+        }
+    </div>
   </Appear>
 };
 
