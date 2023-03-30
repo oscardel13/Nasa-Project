@@ -128,7 +128,7 @@ async function addNewLaunch(newLaunch){
         upcoming: true,
         success: true
     }
-    if (guest.mode){
+    if (guest.mode ){
         guestLaunches.set(newLaunch.flightNumber,newLaunch)
     }
     else{
