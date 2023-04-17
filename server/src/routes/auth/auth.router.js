@@ -27,7 +27,8 @@ authRouter.get('/logout' , (req,res)=>{
 })
 
 authRouter.get('/guest' , (req,res)=>{
-    guest.setMode()
+    console.log("hello")
+    guest.setMode(true)
     return res.redirect('/dashboard')
 })
 

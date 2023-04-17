@@ -43,6 +43,7 @@ passport.deserializeUser((obj,done)=>{
 
 function checkLoggedIn(req,res,next){
     const isLoggedIn = req.isAuthenticated() && req.user;
+    if (isLoggedIn) guest.setMode(false)
     if (!isLoggedIn && !guest.mode) {
         return res.status(401).json({
             error: 'You must log in!'

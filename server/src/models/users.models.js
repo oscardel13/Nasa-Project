@@ -3,8 +3,8 @@ class Guest{
         this.mode = false
     }
 
-    setMode(){
-        this.mode = !this.mode
+    setMode(mode){
+        this.mode = mode
     } 
 }
 
