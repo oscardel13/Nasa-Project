@@ -29,9 +29,16 @@ app.use(cors({
 app.use(morgan("combined"));
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, ".." , 'public')));
 
 app.use('/v1',api)
+
+app.get('/', (req,res)=>{
+    const isLoggedIn = req.isAuthenticated() && req.user;
+    if (isLoggedIn) return res.redirect('/dashboard')
+    res.sendFile(path.join(__dirname,'..','public','index.html'));
+})
+
+app.use(express.static(path.join(__dirname, ".." , 'public')));
 
 // this allows spa routing 
 app.get('/*', checkLoggedIn , (req,res) => {

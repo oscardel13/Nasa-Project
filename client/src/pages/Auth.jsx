@@ -1,6 +1,5 @@
 import { Appear, Button, Loading, Paragraph } from "arwes";
 import { useHistory } from "react-router-dom";
-import { httpGuest } from "../hooks/requests";
 import Clickable from "../components/Clickable";
 
 const Auth = props => {

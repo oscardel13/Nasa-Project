@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import Clickable from "./Clickable";
 import Centered from "./Centered";
+import { useHistory } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -43,6 +44,28 @@ const styles = theme => ({
   button: {
     padding: [0, theme.padding / 2],
   },
+  "@media (max-width: 900px)": {
+    // logo: {
+    //   display: "none",
+    // },
+    button: {
+      padding: [0, 8],
+    },
+    clickable: {
+      fontSize: 16,
+    }
+  },
+  "@media (max-width: 850px)": {
+    logo: {
+      display: "none",
+    },
+    button: {
+      padding: [0, 8],
+    },
+    clickable: {
+      fontSize: 16,
+    }
+  },
   "@media (max-width: 800px)": {
     logo: {
       display: "none",
@@ -60,12 +83,51 @@ const styles = theme => ({
       fontSize: 16,
     }
   },
+  "@media (max-width: 450px)": {
+    logo: {
+      display: "none",
+    },
+    img: {
+      display: "none",
+    },
+    banner: {
+      display: "none",
+    },
+    button: {
+      padding: [0, 7],
+    },
+    clickable: {
+      fontSize: 14,
+    }
+  },
+  "@media (max-width: 402px)": {
+    logo: {
+      display: "none",
+    },
+    img: {
+      display: "none",
+    },
+    banner: {
+      display: "none",
+    },
+    button: {
+      padding: [0,2],
+    },
+    clickable: {
+      fontSize: 12,
+    }
+  },
 });
 
 const Header = props => {
+  const history = useHistory();
   const { classes, onNav, ...rest } = props;
+  const logoutRedirect = () => {
+    history.push("/v1/auth/logout")
+    history.go(0)
+  }
   return <ArwesHeader animate>
-    <Centered className={classes.root} {...rest}>
+    <Centered className={classes.root} {...rest} style={{maxWidth: "900px"}}>
       <img src="/favicon.png" alt="" className={classes.img} style={{
         margin: "15px 10px 15px 0",
         height: "50px",
@@ -93,6 +155,12 @@ const Header = props => {
           <Highlight className={classes.button} animate layer="header">
             <Link className={classes.link} to="/dashboard/history">
             <i className="material-icons">history</i>History</Link>
+          </Highlight>
+        </Clickable>
+        <Clickable className={classes.clickable} onClick={logoutRedirect}>
+          <Highlight className={classes.button} animate layer="header">
+            <Link className={classes.link}>
+            <i className="material-icons">logout</i>Logout</Link>
           </Highlight>
         </Clickable>
       </nav>

@@ -23,11 +23,11 @@ authRouter.get('/failure', (req,res)=>res.send('Failed to log in'))
 
 authRouter.get('/logout' , (req,res)=>{
     req.logout();
+    guest.setMode(false)
     return res.redirect('/')
 })
 
 authRouter.get('/guest' , (req,res)=>{
-    console.log("hello")
     guest.setMode(true)
     return res.redirect('/dashboard')
 })

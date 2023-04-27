@@ -59,26 +59,10 @@ async function httpDeleteLaunch(id) {
   }
 }
 
-async function httpGuest() {
-  try{
-    return await fetch(`${API_URL}/auth/guest`,{
-      method: 'GET',
-      headers: {
-        'Content-Type': "application/json"
-      },
-    })
-  }
-  catch(error){
-    console.log(error)
-    return {ok: false}
-  }
-}
-
 export {
   httpGetPlanets,
   httpGetLaunches,
   httpSubmitLaunch,
   httpAbortLaunch,
-  httpDeleteLaunch,
-  httpGuest
+  httpDeleteLaunch
 };
